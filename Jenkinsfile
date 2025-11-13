@@ -1,12 +1,14 @@
 pipeline {
     agent any
+
     stages {
         stage('Test') {
             steps {
-                sh 'echo "Fail!"; exit 1'
+                bat 'echo "Fail!" && exit /b 1'
             }
         }
     }
+
     post {
         always {
             echo 'This will always run'
