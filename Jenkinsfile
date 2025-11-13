@@ -1,18 +1,15 @@
 pipeline {
     agent any
-
-    environment {
-        DISABLE_AUTH = 'true'
-        DB_ENGINE    = 'sqlite'
-    }
-
     stages {
-        stage('Build') {
+        stage('Test') {
             steps {
-                echo "Database engine is ${DB_ENGINE}"
-                echo "DISABLE_AUTH is ${DISABLE_AUTH}"
-                bat 'set'  // équivalent de "printenv" sur Windows
+                bat './gradlew.bat check'
             }
+        }
+    }
+    post {
+        always {
+            junit 'build/reports/test/test1.xml'
         }
     }
 }
